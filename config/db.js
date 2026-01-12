@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
   try {
     // חיבור ל־MongoDB מקומי
-    await mongoose.connect("mongodb://127.0.0.1:27017/ordersDB");
+    await mongoose.connect(process.env.MONGO_URI);
 
     console.log("MongoDB connected successfully");
   } catch (error) {
