@@ -1,7 +1,4 @@
-// ייבוא express
 import express from "express";
-
-// ייבוא הפונקציות מה־controller
 import {
   GetAllOrders,
   addOrder,
@@ -10,23 +7,27 @@ import {
   deleteOrder
 } from "../controllers/orders.js";
 
-// יצירת Router
+import {
+  authMiddleware,
+  authManagerMiddleware
+} from "../middlewares/auth.js";
+
 const router = express.Router();
 
-// שליפת כל ההזמנות
-router.get("/", GetAllOrders);
 
-// שליפת הזמנה לפי ID
-router.get("/:id", getOrderById);
+// כל ההזמנות – רק ADMIN
+router.get("/", authMiddleware, authManagerMiddleware, GetAllOrders);
 
-// הוספת הזמנה חדשה
-router.post("/", addOrder);
+// הזמנה לפי ID – משתמש מחובר
+router.get("/:id", authMiddleware, getOrderById);
 
-// מחיקת הזמנה לפי ID
-router.delete("/:id", deleteOrder);
+// יצירת הזמנה – משתמש מחובר
+router.post("/", authMiddleware, addOrder);
 
-// עדכון הזמנה – יצאה למשלוח
-router.patch("/:id/ship", updateOrder);
+// מחיקת הזמנה – רק ADMIN
+router.delete("/:id", authMiddleware, authManagerMiddleware, deleteOrder);
 
-// ייצוא ה־router
+// עדכון סטטוס משלוח – רק ADMIN
+router.patch("/:id/ship", authMiddleware, authManagerMiddleware, updateOrder);
+
 export default router;

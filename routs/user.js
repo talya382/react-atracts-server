@@ -1,11 +1,24 @@
-import express from 'express';
+import express from "express";
 import * as userController from "../controllers/user.js";
-import { auth } from "../middlewares/auth.js";
-import { adminOnly } from "../middlewares/adminOnly.js";
+import {
+  authMiddleware,
+  authManagerMiddleware
+} from "../middlewares/auth.js";
 
 const router = express.Router();
-//“יכול להגיע לפונקציה שמחזירה משתמשים א ADMINרק משתמש מחובר שהו  
-router.get('/', auth, adminOnly, userController.getUsers);
-router.post('/login', userController.login);
-router.post('/', userController.addUser);
+
+// קבלת כל המשתמשים – רק ADMIN
+router.get(
+  "/",
+  authMiddleware,
+  authManagerMiddleware,
+  userController.getUsers
+);
+
+// התחברות – פתוח
+router.post("/login", userController.login);
+
+// הרשמה – פתוח
+router.post("/", userController.addUser);
+
 export default router;

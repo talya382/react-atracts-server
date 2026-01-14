@@ -4,17 +4,12 @@ import { OrderModel } from "../models/orsers.js";
 // שליפת כל ההזמנות מהמסד
 export async function GetAllOrders(req, res) {
     try {
-        // שליפת כל ההזמנות
-        const orders = await OrderModel.find();
+        let result = await orderModel.find()
 
-        // החזרת ההזמנות ללקוח
-        res.status(200).json(orders);
-    } catch (error) {
-        // שגיאת שרת כללית
-        res.status(500).json({ 
-            message: "Error fetching orders", 
-            error 
-        });
+        return res.json(result)
+    } catch (x) {
+        return res.status(500).json({ title: "Error retrieving orders", message: x.message })
+       
     }
 }
 
@@ -69,12 +64,8 @@ export const addOrder = async (req, res) => {
         // החזרת ההזמנה שנוצרה
         res.status(201).json(newOrder);
 
-    } catch (error) {
-        // שגיאת שרת ביצירת הזמנה
-        res.status(500).json({
-            message: "Error creating order",
-            error: error.message
-        });
+    }   catch (x) {
+        return res.status(500).json({ title: "Error adding order", message: x })
     }
 };
 
@@ -112,12 +103,8 @@ export const getOrderById = async (req, res) => {
         // החזרת ההזמנה
         res.json(order);
 
-    } catch (err) {
-        // שגיאת שרת
-        return res.status(500).json({
-            title: "Error retrieving order",
-            message: err.message
-        });
+    } catch (x) {
+        return res.status(500).json({ title: "Error retrieving order", message: x })
     }
 };
 
@@ -150,12 +137,8 @@ export const updateOrder = async (req, res) => {
             order
         });
 
-    } catch (error) {
-        // שגיאת שרת
-        res.status(500).json({
-            message: "Error updating order",
-            error: error.message
-        });
+    }     catch (x) {
+        return res.status(500).json({ title: "Error updating order status", message: x })
     }
 };
 
@@ -196,11 +179,7 @@ export const deleteOrder = async (req, res) => {
             message: `Order ${id} was successfully deleted`
         });
 
-    } catch (err) {
-        // שגיאת שרת
-        return res.status(500).json({
-            title: "Error deleting order",
-            message: err.message
-        });
+    } catch (x) {
+        return res.status(500).json({ title: "Error cancelling order", message: x })
     }
 };
