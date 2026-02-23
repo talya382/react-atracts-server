@@ -4,7 +4,7 @@ import { OrderModel } from "../models/orsers.js";
 // שליפת כל ההזמנות מהמסד
 export async function GetAllOrders(req, res) {
     try {
-        let result = await orderModel.find()
+        let result = await OrderModel.find()
 
         return res.json(result)
     } catch (x) {
