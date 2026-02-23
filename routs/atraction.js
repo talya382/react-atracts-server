@@ -7,10 +7,10 @@ import {
   updateAtraction
 } from "../controllers/atraction.js";
 
-import {
-  authMiddleware,
-  authManagerMiddleware
-} from "../middlewares/auth.js";
+// import {
+//   authMiddleware,
+//   authManagerMiddleware
+// } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -19,8 +19,8 @@ router.get("/", getAtraction);
 router.get("/:id", getAtractiontById);
 
 // פעולות ניהול – רק ADMIN
-router.post("/", authMiddleware, authManagerMiddleware, createAtraction);
-router.delete("/:id", authMiddleware, authManagerMiddleware, deleteAtraction);
-router.put("/:id", authMiddleware, authManagerMiddleware, updateAtraction);
+//router.post("/", authMiddleware, authManagerMiddleware, createAtraction);
+//router.delete("/:id", authMiddleware, authManagerMiddleware, deleteAtraction);
+//router.put("/:id", authMiddleware, authManagerMiddleware, updateAtraction);
 
 export default router;

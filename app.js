@@ -5,8 +5,8 @@ import ordersRoutes from "./routs/orders.js";
 import attractionsRoutes from "./routs/atraction.js";
 import usersRoutes from "./routs/user.js";
 import connectDB from "./config/db.js";
-import { printToLog } from "./middlewares/logToFile.js";
-import { authMiddleware } from "./middlewares/auth.js";
+//import { printToLog } from "./middlewares/logToFile.js";
+//import { authMiddleware } from "./middlewares/auth.js";
 
 
 // 🔹 טעינת משתני סביבה
