@@ -38,32 +38,42 @@ export const addUser = (req, res) => {
 }
 
 export const login = (req, res) => {
+    console.log("--- הגיעה בקשת לוגין! ---");
+    console.log("Login request reached server with:", req.body.email); // הדפסה 1
+
     if (!req.body)
-        return res.status(400).json({ title: "missing body", massage: "no data" })
-    let { email, password: pass } = req.body
-    if (!email || !pass)
-        return res.status(404).json({ title: "missing data", massage: "email,password are required" })
+        return res.status(400).json({ title: "missing body", massage: "no data" });
+
+    let { email, password: pass } = req.body;
+
     userModel.findOne({ email, status: true })
         .then(user => {
+            console.log("User found in DB:", user ? "Yes" : "No"); // הדפסה 2
+
             if (!user)
-                return res.status(404).json({ title: "invalid details", massage: "email is incorrect" })
-            let isMatch = compareSync(pass, user.password)//משווה את הסיסמא עם הסיסמא המצויה במסד הנתונים
+                return res.status(404).json({ title: "invalid details", massage: "email is incorrect" });
+
+            let isMatch = compareSync(pass, user.password);
+            console.log("Password match:", isMatch); // הדפסה 3
+
             if (!isMatch)
-                return res.status(404).json({ title: "invalid details", massage: "password is incorrect" })
+                return res.status(404).json({ title: "invalid details", massage: "password is incorrect" });
+
+            console.log("Generating token..."); // הדפסה 4
 
             const token = jwt.sign(
-                { _id: user._id, role: user.role },//חהשרת חותם מי המשתמש ואיזה רול הוא
-                process.env.JWT_SECRET,//מחרוזת סודית שרק הוא יודע
-                { expiresIn: "1h" }//הטוקן תקף לשעה
+                { _id: user._id, role: user.role },
+                process.env.SECRET,
+                { expiresIn: "1h" }
             );
-             let { password, ...other } = user.toObject();
-    
-            return res.json({//הלקוח שומר את הטוקן
-                token,
-                user: other
-            });
+
+            console.log("Token generated successfully!"); // הדפסה 5
+
+            let { password, ...other } = user.toObject();
+            return res.json({ token, user: other });
         })
         .catch(err => {
-            return res.status(500).json({ title: "eror logging in", massage: err })
-        })
+            console.error("Login Error:", err); // הדפסה במקרה של שגיאה
+            return res.status(500).json({ title: "eror logging in", massage: err.message });
+        });
 }

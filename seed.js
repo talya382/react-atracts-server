@@ -1,0 +1,90 @@
+import mongoose from "mongoose";
+import { atractionModel } from "./models/atraction.js";
+
+await mongoose.connect("mongodb+srv://talyaacc055_db:0zYkzSlcWsNGEG7C@atraction.eybywve.mongodb.net/");
+
+const attractions = [
+  // 🐴 רכיבה על סוסים
+  { name: "חוות הסוסים הגליל", description: "רכיבה ת בנופי הגליל", price: 150, imgUrl: "/img/horses/horses-1.png", category: "land", subCategory: "horses", phone: "04-1234567", address: "כפר בלום, גליל עליון", location: { lat: 33.17, lng: 35.61 } },
+  { name: "אורוות השרון", description: "רכיבה על חוף הים בשקיעה", price: 120, imgUrl: "/img/horses/horses-2.png", category: "land", subCategory: "horses", phone: "09-9876543", address: "הרצליה פיתוח", location: { lat: 32.16, lng: 34.84 } },
+  { name: "סוסי הנגב", description: "רכיבה דרמטית במדבר הנגב", price: 180, imgUrl: "/img/horses/horses-3.png", category: "land", subCategory: "horses", phone: "08-5554444", address: "מצפה רמון", location: { lat: 30.61, lng: 34.80 } },
+  { name: "חוות כרמל רידינג", description: "רכיבה בחורשות הכרמל", price: 160, imgUrl: "/img/horses/horses-4.png", category: "land", subCategory: "horses", phone: "04-8882222", address: "זכרון יעקב", location: { lat: 32.57, lng: 34.95 } },
+  { name: "אורוות ים המלח", description: "רכיבה ייחודית ליד ים המלח", price: 200, imgUrl: "/img/horses/horses-5.png", category: "land", subCategory: "horses", phone: "08-6591111", address: "עין גדי", location: { lat: 31.46, lng: 35.39 } },
+  { name: "סוסי הגולן", description: "רכיבה ברמת הגולן עם נוף לחרמון", price: 170, imgUrl: "/img/horses/horses-6.png", category: "land", subCategory: "horses", phone: "04-6963333", address: "קצרין, רמת הגולן", location: { lat: 32.99, lng: 35.69 } },
+  { name: "חוות הערבה", description: "רכיבה בערבה לאור הכוכבים", price: 220, imgUrl: "/img/horses/horses-1.png", category: "land", subCategory: "horses", phone: "08-6358888", address: "יטבתה, ערבה", location: { lat: 29.87, lng: 35.06 } },
+
+  // 🚜 טרקטורנים
+  { name: "טרקטורנים ירושלים", description: "שטח פתוח ואדרנלין בהרי ירושלים", price: 200, imgUrl: "/img/tractors/tractors-1.png", category: "land", subCategory: "tractors", phone: "02-1112222", address: "מבשרת ציון", location: { lat: 31.78, lng: 35.10 } },
+  { name: "טרקטורנים כרמל", description: "מסלולי שטח על הר הכרמל", price: 220, imgUrl: "/img/tractors/tractors-2.png", category: "land", subCategory: "tractors", phone: "04-3334444", address: "עוספיה, הכרמל", location: { lat: 32.72, lng: 35.06 } },
+  { name: "טרקטורנים גולן", description: "סיור מרתק ברמת הגולן", price: 250, imgUrl: "/img/tractors/tractors-3.png", category: "land", subCategory: "tractors", phone: "04-6667777", address: "קצרין, רמת הגולן", location: { lat: 33.01, lng: 35.71 } },
+  { name: "טרקטורנים נגב", description: "מסלולי חול ואבן במדבר הנגב", price: 230, imgUrl: "/img/tractors/tractors-4.png", category: "land", subCategory: "tractors", phone: "08-6234567", address: "ביר הדאג', נגב", location: { lat: 30.85, lng: 34.75 } },
+  { name: "טרקטורנים גליל", description: "מסלולי בוץ ויער בגליל", price: 210, imgUrl: "/img/tractors/tractors-5.png", category: "land", subCategory: "tractors", phone: "04-9081234", address: "שלומי, גליל מערבי", location: { lat: 33.07, lng: 35.15 } },
+  { name: "טרקטורנים ערבה", description: "מסלולי שטח קיצוניים בערבה", price: 280, imgUrl: "/img/tractors/tractors-6.png", category: "land", subCategory: "tractors", phone: "08-6371111", address: "חצבה, ערבה", location: { lat: 30.77, lng: 35.24 } },
+  { name: "טרקטורנים שרון", description: "מסלולי בוץ באזור השרון", price: 190, imgUrl: "/img/tractors/tractors-7.png", category: "land", subCategory: "tractors", phone: "09-7774444", address: "כפר סבא", location: { lat: 32.18, lng: 34.91 } },
+
+  // 🏎️ רנג'רים
+  { name: "רנג'רים גליל", description: "סיור רנג'רים בנופי הגליל", price: 280, imgUrl: "/img/rangers/rangers-1.png", category: "land", subCategory: "rangers", phone: "04-6961111", address: "ראש פינה, גליל", location: { lat: 32.97, lng: 35.57 } },
+  { name: "רנג'רים גולן", description: "שטח פראי ברמת הגולן", price: 300, imgUrl: "/img/rangers/rangers-2.png", category: "land", subCategory: "rangers", phone: "04-6962222", address: "קצרין, רמת הגולן", location: { lat: 33.01, lng: 35.69 } },
+  { name: "רנג'רים נגב", description: "מסלולי שטח בנגב הפראי", price: 260, imgUrl: "/img/rangers/rangers-3.png", category: "land", subCategory: "rangers", phone: "08-6233333", address: "מצפה רמון", location: { lat: 30.61, lng: 34.80 } },
+  { name: "רנג'רים כרמל", description: "מסלולי שטח מאתגרים בכרמל", price: 250, imgUrl: "/img/rangers/rangers-4.png", category: "land", subCategory: "rangers", phone: "04-8524444", address: "עוספיה, הכרמל", location: { lat: 32.72, lng: 35.06 } },
+  { name: "רנג'רים ערבה", description: "מסלולי אבק וחול בערבה", price: 320, imgUrl: "/img/rangers/rangers-5.png", category: "land", subCategory: "rangers", phone: "08-6375555", address: "חצבה, ערבה", location: { lat: 30.77, lng: 35.24 } },
+  { name: "רנג'רים ירושלים", description: "הרי ירושלים על רנג'ר", price: 270, imgUrl: "/img/rangers/rangers-6.png", category: "land", subCategory: "rangers", phone: "02-5006666", address: "מבשרת ציון", location: { lat: 31.78, lng: 35.10 } },
+  { name: "רנג'רים שרון", description: "שדות ומסלולי בוץ בשרון", price: 240, imgUrl: "/img/rangers/rangers-7.png", category: "land", subCategory: "rangers", phone: "09-7777777", address: "כפר סבא", location: { lat: 32.18, lng: 34.91 } },
+
+  // 🏄 גלישה
+  { name: "גלישה חוף גורדון", description: "גלישה בגלים של תל אביב", price: 150, imgUrl: "/img/surfing/surfing-1.png", category: "sea", subCategory: "surfing", phone: "03-5271234", address: "חוף גורדון, תל אביב", location: { lat: 32.08, lng: 34.76 } },
+  { name: "גלישה חוף בת ים", description: "גלישה בגלים הגבוהים של בת ים", price: 130, imgUrl: "/img/surfing/surfing-2.png", category: "sea", subCategory: "surfing", phone: "03-5551234", address: "חוף בת ים", location: { lat: 32.01, lng: 34.75 } },
+  { name: "גלישה חיפה", description: "גלישה עם נוף לכרמל", price: 140, imgUrl: "/img/surfing/surfing-3.png", category: "sea", subCategory: "surfing", phone: "04-8551234", address: "חוף הכרמל, חיפה", location: { lat: 32.80, lng: 34.97 } },
+  { name: "גלישה נהריה", description: "גלישה בחוף הצפוני", price: 120, imgUrl: "/img/surfing/surfing-4.png", category: "sea", subCategory: "surfing", phone: "04-9921234", address: "חוף נהריה", location: { lat: 33.00, lng: 35.09 } },
+  { name: "גלישה אשדוד", description: "גלישה בגלים של חוף אשדוד", price: 130, imgUrl: "/img/surfing/surfing-5.png", category: "sea", subCategory: "surfing", phone: "08-8531234", address: "חוף אשדוד", location: { lat: 31.80, lng: 34.64 } },
+  { name: "גלישה אשקלון", description: "גלישה ושחייה בחוף אשקלון", price: 120, imgUrl: "/img/surfing/surfing-6.png", category: "sea", subCategory: "surfing", phone: "08-6741234", address: "חוף אשקלון", location: { lat: 31.67, lng: 34.56 } },
+  { name: "גלישה נתניה", description: "גלישה בגלים הגדולים של נתניה", price: 135, imgUrl: "/img/surfing/surfing-7.png", category: "sea", subCategory: "surfing", phone: "09-8621234", address: "חוף נתניה", location: { lat: 32.33, lng: 34.85 } },
+
+  // 🤿 צלילה
+  { name: "צלילה אילת - שמורת האלמוגים", description: "צלילה בין אלמוגים צבעוניים", price: 300, imgUrl: "/img/diving/diving-1.png", category: "sea", subCategory: "diving", phone: "08-6365555", address: "מרינה אילת", location: { lat: 29.55, lng: 34.95 } },
+  { name: "צלילה חיפה - הצוללת", description: "צלילה ליד ספינה טבועה", price: 280, imgUrl: "/img/diving/diving-2.png", category: "sea", subCategory: "diving", phone: "04-8527777", address: "נמל עתלית", location: { lat: 32.69, lng: 34.94 } },
+  { name: "צלילה אילת - הדולפינריה", description: "צלילה עם דולפינים", price: 350, imgUrl: "/img/diving/diving-3.png", category: "sea", subCategory: "diving", phone: "08-6371234", address: "חוף הדולפינים, אילת", location: { lat: 29.51, lng: 34.92 } },
+  { name: "צלילה נהריה", description: "צלילה בחופי הצפון", price: 250, imgUrl: "/img/diving/diving-4.png", category: "sea", subCategory: "diving", phone: "04-9921235", address: "חוף נהריה", location: { lat: 33.01, lng: 35.10 } },
+  { name: "צלילה כינרת", description: "צלילה במים המתוקים של הכינרת", price: 200, imgUrl: "/img/diving/diving-5.png", category: "sea", subCategory: "diving", phone: "04-6791234", address: "טבריה, כינרת", location: { lat: 32.78, lng: 35.54 } },
+  { name: "צלילה תל אביב", description: "צלילה בחוף תל אביב", price: 260, imgUrl: "/img/diving/diving-6.png", category: "sea", subCategory: "diving", phone: "03-5271235", address: "חוף תל אביב", location: { lat: 32.07, lng: 34.76 } },
+  { name: "צלילה ים המלח", description: "חוויית הציפה הייחודית", price: 180, imgUrl: "/img/diving/diving-7.png", category: "sea", subCategory: "diving", phone: "08-6591112", address: "עין בוקק", location: { lat: 31.20, lng: 35.36 } },
+
+  // ⛵ שייט
+  { name: "שייט בכנרת", description: "שייט בסירת מנוע בכנרת", price: 200, imgUrl: "/img/sailing/sailing-1.png", category: "sea", subCategory: "sailing", phone: "04-6792222", address: "טבריה, כנרת", location: { lat: 32.79, lng: 35.53 } },
+  { name: "שייט אילת", description: "שייט ביאכטה במפרץ אילת", price: 400, imgUrl: "/img/sailing/sailing-2.png", category: "sea", subCategory: "sailing", phone: "08-6361234", address: "מרינה אילת", location: { lat: 29.54, lng: 34.96 } },
+  { name: "שייט תל אביב", description: "שייט בסירות בחוף תל אביב", price: 300, imgUrl: "/img/sailing/sailing-3.png", category: "sea", subCategory: "sailing", phone: "03-5279999", address: "נמל תל אביב", location: { lat: 32.10, lng: 34.78 } },
+  { name: "שייט חיפה", description: "שייט במפרץ חיפה עם נוף לכרמל", price: 280, imgUrl: "/img/sailing/sailing-4.png", category: "sea", subCategory: "sailing", phone: "04-8529999", address: "נמל חיפה", location: { lat: 32.82, lng: 35.00 } },
+  { name: "קיאקים נהר הירדן", description: "שיוט בקיאקים לאורך הירדן", price: 120, imgUrl: "/img/sailing/sailing-5.png", category: "sea", subCategory: "sailing", phone: "04-6946666", address: "כפר בלום, ירדן", location: { lat: 33.18, lng: 35.62 } },
+  { name: "שייט נהריה", description: "שייט לאורך חוף הצפון", price: 250, imgUrl: "/img/sailing/sailing-6.png", category: "sea", subCategory: "sailing", phone: "04-9929999", address: "נמל עכו", location: { lat: 32.92, lng: 35.07 } },
+  { name: "שייט אשדוד", description: "שייט מהנה בנמל אשדוד", price: 220, imgUrl: "/img/sailing/sailing-7.png", category: "sea", subCategory: "sailing", phone: "08-8539999", address: "נמל אשדוד", location: { lat: 31.83, lng: 34.65 } },
+
+  // 🎈 כדור פורח
+  { name: "כדור פורח גליל", description: "טיסה שקטה מעל הגליל", price: 650, imgUrl: "/img/balloon/balloon-1.png", category: "air", subCategory: "balloon", phone: "04-6968888", address: "ראש פינה, גליל", location: { lat: 32.97, lng: 35.57 } },
+  { name: "כדור פורח ירושלים", description: "טיסה מרהיבה מעל ירושלים", price: 750, imgUrl: "/img/balloon/balloon-2.png", category: "air", subCategory: "balloon", phone: "02-5009999", address: "מישור אדומים", location: { lat: 31.78, lng: 35.32 } },
+  { name: "כדור פורח נגב", description: "טיסה מעל מדבר הנגב", price: 700, imgUrl: "/img/balloon/balloon-3.png", category: "air", subCategory: "balloon", phone: "08-6239999", address: "מצפה רמון", location: { lat: 30.60, lng: 34.80 } },
+  { name: "כדור פורח עמק יזרעאל", description: "טיסה מעל עמק יזרעאל הירוק", price: 620, imgUrl: "/img/balloon/balloon-4.png", category: "air", subCategory: "balloon", phone: "04-6521234", address: "עפולה, עמק יזרעאל", location: { lat: 32.61, lng: 35.29 } },
+  { name: "כדור פורח שרון", description: "טיסה מעל נופי השרון", price: 600, imgUrl: "/img/balloon/balloon-5.png", category: "air", subCategory: "balloon", phone: "09-7779999", address: "הרצליה", location: { lat: 32.17, lng: 34.84 } },
+  { name: "כדור פורח גולן", description: "טיסה מעל רמת הגולן", price: 800, imgUrl: "/img/balloon/balloon-6.png", category: "air", subCategory: "balloon", phone: "04-6969999", address: "קצרין, גולן", location: { lat: 33.00, lng: 35.70 } },
+  { name: "כדור פורח אילת", description: "טיסה מעל מפרץ אילת", price: 900, imgUrl: "/img/balloon/balloon-7.png", category: "air", subCategory: "balloon", phone: "08-6369999", address: "אילת", location: { lat: 29.56, lng: 34.95 } },
+
+  // 🪂 צניחה חופשית
+  { name: "צניחה חופשית תל נוף", description: "קפיצה מ-4000 מטר", price: 900, imgUrl: "/img/parachute/parachute-1.png", category: "air", subCategory: "parachute", phone: "08-9998888", address: "בסיס תל נוף", location: { lat: 31.92, lng: 34.82 } },
+  { name: "צניחה חופשית חיפה", description: "קפיצה עם נוף לים התיכון", price: 950, imgUrl: "/img/parachute/parachute-2.png", category: "air", subCategory: "parachute", phone: "04-8001234", address: "נמל התעופה חיפה", location: { lat: 32.81, lng: 35.04 } },
+  { name: "צניחה חופשית אילת", description: "קפיצה מעל מפרץ אילת", price: 1100, imgUrl: "/img/parachute/parachute-3.png", category: "air", subCategory: "parachute", phone: "08-6362222", address: "שדה התעופה אילת", location: { lat: 29.72, lng: 35.00 } },
+  { name: "צניחה חופשית נגב", description: "צניחה מעל מדבר הנגב", price: 850, imgUrl: "/img/parachute/parachute-4.png", category: "air", subCategory: "parachute", phone: "08-6239998", address: "באר שבע", location: { lat: 31.25, lng: 34.79 } },
+  { name: "צניחה חופשית גליל", description: "צניחה עם נוף לגליל", price: 880, imgUrl: "/img/parachute/parachute-5.png", category: "air", subCategory: "parachute", phone: "04-6961234", address: "ראש פינה", location: { lat: 32.98, lng: 35.56 } },
+  { name: "צניחה חופשית שרון", description: "צניחה מעל אזור השרון", price: 900, imgUrl: "/img/parachute/parachute-6.png", category: "air", subCategory: "parachute", phone: "09-7771234", address: "הרצליה", location: { lat: 32.16, lng: 34.83 } },
+  { name: "צניחה חופשית ירושלים", description: "קפיצה מעל הרי ירושלים", price: 970, imgUrl: "/img/parachute/parachute-7.png", category: "air", subCategory: "parachute", phone: "02-5001235", address: "שדה דב, ירושלים", location: { lat: 31.82, lng: 35.20 } },
+
+  // ✈️ טיסה בשמי הארץ
+  { name: "טיסת ג'ויריד תל אביב", description: "טיסה פרטית מעל תל אביב", price: 1200, imgUrl: "/img/fling/gliding-1.png", category: "air", subCategory: "gliding", phone: "03-5271236", address: "שדה דב, תל אביב", location: { lat: 32.10, lng: 34.78 } },
+  { name: "גלשון רמת הגולן", description: "גלישת רוח מרמת הגולן", price: 500, imgUrl: "/img/fling/gliding-2.png", category: "air", subCategory: "gliding", phone: "04-6961235", address: "קצרין, גולן", location: { lat: 33.01, lng: 35.68 } },
+  { name: "גלשון הגליל", description: "גלישת רוח מעל הגליל", price: 450, imgUrl: "/img/fling/gliding-3.png", category: "air", subCategory: "gliding", phone: "04-6931235", address: "ראש פינה", location: { lat: 32.96, lng: 35.55 } },
+  { name: "טיסת אולטרה-לייט נגב", description: "טיסה קלה מעל מדבר הנגב", price: 600, imgUrl: "/img/fling/gliding-4.png", category: "air", subCategory: "gliding", phone: "08-6231235", address: "מצפה רמון", location: { lat: 30.62, lng: 34.81 } },
+  { name: "טיסת מטוס קל אילת", description: "טיסה מרהיבה מעל מפרץ אילת", price: 800, imgUrl: "/img/fling/gliding-5.png", category: "air", subCategory: "gliding", phone: "08-6361235", address: "שדה התעופה אילת", location: { lat: 29.73, lng: 35.01 } },
+];
+
+await atractionModel.deleteMany({});
+await atractionModel.insertMany(attractions);
+console.log(`✅ ${attractions.length} אטרקציות נוספו בהצלחה!`);
+mongoose.disconnect();

@@ -3,17 +3,17 @@ import jwt from 'jsonwebtoken';
 
 export const getAtraction = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;//משתנה ששומר את מספר העמוד של המשתמש
-        const limit = parseInt(req.query.limit) || 5;//משתנה ששומר כמה מוצרים נציג בכל עמוד
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 5;
+        const skip = (page - 1) * limit;
 
-        const skip = (page - 1) * limit;//משתנה שמחשב כמה עמודים צריך לדלג עליהם
+        // פילטר לפי category ו-subCategory אם נשלחו
+        const filter = {};
+        if (req.query.category) filter.category = req.query.category;
+        if (req.query.subCategory) filter.subCategory = req.query.subCategory;
 
-        const atraction = await atractionModel.find({})
-            .skip(skip)   // מדלג על המוצרים של העמודים הקודמים
-            .limit(limit); // מגביל את הכמות לעמוד הנוכחי
-
-        // אופציונלי: קבלת הכמות הכוללת של המוצרים במערכת לצורך חישוב עמודים ב-Frontend
-        const totalAtraction = await atractionModel.countDocuments();
+        const atraction = await atractionModel.find(filter).skip(skip).limit(limit);
+        const totalAtraction = await atractionModel.countDocuments(filter);
 
         return res.status(200).json({
             status: "success",
@@ -26,7 +26,6 @@ export const getAtraction = async (req, res) => {
         return res.status(500).json({ title: "Error retrieving atraction", message: err.message });
     }
 }
-
 export const getAtractiontById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -51,6 +50,7 @@ export const verifyToken = (req, res, next) => {
     try {
         // 2. אימות הטוקן (את צריכה לדעת מה המפתח הסודי שהשתמשו בו בישות של ה-User)
         // בדרך כלל הוא שמור ב-process.env.JWT_SECRET
+        // eslint-disable-next-line no-undef
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_secret_key');
 
         // 3. שמירת פרטי המשתמש על הבקשה
@@ -58,6 +58,7 @@ export const verifyToken = (req, res, next) => {
         req.user = decoded; 
 
         next(); // עובר למחסום הבא (isAdmin)
+    // eslint-disable-next-line no-unused-vars
     } catch (err) {
         return res.status(403).json({ title: "Forbidden", message: "טוקן לא תקף או פג תוקף" });
     }
