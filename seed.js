@@ -5,7 +5,7 @@ await mongoose.connect("mongodb+srv://talyaacc055_db:0zYkzSlcWsNGEG7C@atraction.
 
 const attractions = [
   // 🐴 רכיבה על סוסים
-  { name: "חוות הסוסים הגליל", description: "רכיבה רומנטית בנופי הגליל", price: 150, imgUrl: "/img/horses/horses-1.png", category: "land", subCategory: "horses", phone: "04-1234567", address: "כפר בלום, גליל עליון", location: { lat: 33.17, lng: 35.61 } },
+  { name: "חוות הסוסים הגליל", description: "רכיבה ת בנופי הגליל", price: 150, imgUrl: "/img/horses/horses-1.png", category: "land", subCategory: "horses", phone: "04-1234567", address: "כפר בלום, גליל עליון", location: { lat: 33.17, lng: 35.61 } },
   { name: "אורוות השרון", description: "רכיבה על חוף הים בשקיעה", price: 120, imgUrl: "/img/horses/horses-2.png", category: "land", subCategory: "horses", phone: "09-9876543", address: "הרצליה פיתוח", location: { lat: 32.16, lng: 34.84 } },
   { name: "סוסי הנגב", description: "רכיבה דרמטית במדבר הנגב", price: 180, imgUrl: "/img/horses/horses-3.png", category: "land", subCategory: "horses", phone: "08-5554444", address: "מצפה רמון", location: { lat: 30.61, lng: 34.80 } },
   { name: "חוות כרמל רידינג", description: "רכיבה בחורשות הכרמל", price: 160, imgUrl: "/img/horses/horses-4.png", category: "land", subCategory: "horses", phone: "04-8882222", address: "זכרון יעקב", location: { lat: 32.57, lng: 34.95 } },
@@ -77,13 +77,11 @@ const attractions = [
   { name: "צניחה חופשית ירושלים", description: "קפיצה מעל הרי ירושלים", price: 970, imgUrl: "/img/parachute/parachute-7.png", category: "air", subCategory: "parachute", phone: "02-5001235", address: "שדה דב, ירושלים", location: { lat: 31.82, lng: 35.20 } },
 
   // ✈️ טיסה בשמי הארץ
-  { name: "טיסת ג'ויריד תל אביב", description: "טיסה פרטית מעל תל אביב", price: 1200, imgUrl: "/img/gliding/gliding-1.png", category: "air", subCategory: "gliding", phone: "03-5271236", address: "שדה דב, תל אביב", location: { lat: 32.10, lng: 34.78 } },
-  { name: "גלשון רמת הגולן", description: "גלישת רוח מרמת הגולן", price: 500, imgUrl: "/img/gliding/gliding-2.png", category: "air", subCategory: "gliding", phone: "04-6961235", address: "קצרין, גולן", location: { lat: 33.01, lng: 35.68 } },
-  { name: "גלשון הגליל", description: "גלישת רוח מעל הגליל", price: 450, imgUrl: "/img/gliding/gliding-3.png", category: "air", subCategory: "gliding", phone: "04-6931235", address: "ראש פינה", location: { lat: 32.96, lng: 35.55 } },
-  { name: "טיסת אולטרה-לייט נגב", description: "טיסה קלה מעל מדבר הנגב", price: 600, imgUrl: "/img/gliding/gliding-4.png", category: "air", subCategory: "gliding", phone: "08-6231235", address: "מצפה רמון", location: { lat: 30.62, lng: 34.81 } },
-  { name: "טיסת מטוס קל אילת", description: "טיסה מרהיבה מעל מפרץ אילת", price: 800, imgUrl: "/img/gliding/gliding-5.png", category: "air", subCategory: "gliding", phone: "08-6361235", address: "שדה התעופה אילת", location: { lat: 29.73, lng: 35.01 } },
-  { name: "גלשון כרמל", description: "גלישת רוח מהכרמל לים", price: 480, imgUrl: "/img/gliding/gliding-6.png", category: "air", subCategory: "gliding", phone: "04-8521235", address: "עוספיה, הכרמל", location: { lat: 32.71, lng: 35.05 } },
-  { name: "טיסת דאון ירושלים", description: "דאייה שקטה מעל הרי ירושלים", price: 550, imgUrl: "/img/gliding/gliding-7.png", category: "air", subCategory: "gliding", phone: "02-5001236", address: "מישור אדומים", location: { lat: 31.79, lng: 35.33 } },
+  { name: "טיסת ג'ויריד תל אביב", description: "טיסה פרטית מעל תל אביב", price: 1200, imgUrl: "/img/fling/gliding-1.png", category: "air", subCategory: "gliding", phone: "03-5271236", address: "שדה דב, תל אביב", location: { lat: 32.10, lng: 34.78 } },
+  { name: "גלשון רמת הגולן", description: "גלישת רוח מרמת הגולן", price: 500, imgUrl: "/img/fling/gliding-2.png", category: "air", subCategory: "gliding", phone: "04-6961235", address: "קצרין, גולן", location: { lat: 33.01, lng: 35.68 } },
+  { name: "גלשון הגליל", description: "גלישת רוח מעל הגליל", price: 450, imgUrl: "/img/fling/gliding-3.png", category: "air", subCategory: "gliding", phone: "04-6931235", address: "ראש פינה", location: { lat: 32.96, lng: 35.55 } },
+  { name: "טיסת אולטרה-לייט נגב", description: "טיסה קלה מעל מדבר הנגב", price: 600, imgUrl: "/img/fling/gliding-4.png", category: "air", subCategory: "gliding", phone: "08-6231235", address: "מצפה רמון", location: { lat: 30.62, lng: 34.81 } },
+  { name: "טיסת מטוס קל אילת", description: "טיסה מרהיבה מעל מפרץ אילת", price: 800, imgUrl: "/img/fling/gliding-5.png", category: "air", subCategory: "gliding", phone: "08-6361235", address: "שדה התעופה אילת", location: { lat: 29.73, lng: 35.01 } },
 ];
 
 await atractionModel.deleteMany({});
