@@ -4,7 +4,9 @@ import {
   getAtractiontById,
   createAtraction,
   deleteAtraction,
-  updateAtraction
+  updateAtraction,
+  incrementOrderCount,  // ← הועבר לכאן
+  getTop10              // ← הועבר לכאן
 } from "../controllers/atraction.js";
 
 import {
@@ -14,13 +16,15 @@ import {
 
 const router = express.Router();
 
-// צפייה – פתוח
+const adminMiddlewares = [authMiddleware, authManagerMiddleware]; // ← חדש
+
+router.get("/top10", getTop10);
 router.get("/", getAtraction);
 router.get("/:id", getAtractiontById);
 
-// פעולות ניהול – רק ADMIN
-router.post("/", authMiddleware, authManagerMiddleware, createAtraction);
-router.delete("/:id", authMiddleware, authManagerMiddleware, deleteAtraction);
-router.put("/:id", authMiddleware, authManagerMiddleware, updateAtraction);
+router.post("/", ...adminMiddlewares, createAtraction);           // ← נקי יותר
+router.delete("/:id", ...adminMiddlewares, deleteAtraction);
+router.put("/:id", ...adminMiddlewares, updateAtraction);
+router.patch("/:id/order", incrementOrderCount);
 
 export default router;

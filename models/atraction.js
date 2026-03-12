@@ -15,7 +15,8 @@ export const atractionSchema = new mongoose.Schema({
     location: {
         lat: Number,
         lng: Number
-    }
+    },
+    orderCount: { type: Number, default: 0 }
 });
 
 export const atractionModel = mongoose.model('atractions', atractionSchema);

@@ -19,7 +19,9 @@ const app = express();
 connectDB();
 
 // Middlewares - חייבים לבוא לפני ה-Routes
-app.use(cors());
+app.use(cors({
+    origin: "https://atract-israel-bytay.netlify.app"
+  }));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(printToLog);

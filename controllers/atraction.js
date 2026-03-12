@@ -133,5 +133,31 @@ export const updateAtraction = async (req, res) => {
         return res.status(500).json({ title: "Error updating atraction", message: err.message })
     }
 }
+export const incrementOrderCount = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const atraction = await atractionModel.findByIdAndUpdate(
+        id,
+        { $inc: { orderCount: 1 } },
+        { new: true }
+      );
+      if (!atraction)
+        return res.status(404).json({ message: "לא נמצא" });
+      return res.status(200).json(atraction);
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  };
+  
+  export const getTop10 = async (req, res) => {
+    try {
+      const top10 = await atractionModel.find()
+        .sort({ orderCount: -1 })
+        .limit(10);
+      return res.status(200).json(top10);
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+  };
 
 
