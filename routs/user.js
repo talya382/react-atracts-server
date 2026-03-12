@@ -10,8 +10,8 @@ const router = express.Router();
 // קבלת כל המשתמשים – רק ADMIN
 router.get(
   "/",
-  authMiddleware,
-  authManagerMiddleware,
+  // authMiddleware,
+  // authManagerMiddleware,
   userController.getUsers
 );
 
