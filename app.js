@@ -20,7 +20,10 @@ connectDB();
 
 // Middlewares - חייבים לבוא לפני ה-Routes
 app.use(cors({
-    origin: "https://atract-israel-bytay.netlify.app"
+    origin: [
+      "http://localhost:5173",
+      "https://atract-israel-bytay.netlify.app"
+    ]
   }));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
