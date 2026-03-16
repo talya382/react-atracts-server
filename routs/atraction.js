@@ -1,4 +1,14 @@
 import express from "express";
+import {
+  getAtraction,
+  getAtractiontById,
+  createAtraction,
+  deleteAtraction,
+  updateAtraction,
+  incrementOrderCount,
+  getTop10
+} from "../controllers/atraction.js";
+
 const router = express.Router();
 
 router.get("/top10", getTop10);
