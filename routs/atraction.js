@@ -1,3 +1,4 @@
+import express from "express";
 const router = express.Router();
 
 router.get("/top10", getTop10);
