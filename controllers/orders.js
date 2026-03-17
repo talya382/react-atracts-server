@@ -69,76 +69,16 @@ export const addOrder = async (req, res) => {
     }
 };
 
-// שליפת הזמנה לפי ID (רק אם שייכת למשתמש)
 export const getOrderById = async (req, res) => {
     try {
-        // מזהה ההזמנה מה־URL
         const { id } = req.params;
-
-        // מזהה המשתמש מה־body
-        const { userId } = req.body;
-
-        // בדיקה ש־userId נשלח
-        if (!userId) {
-            return res.status(400).json({
-                title: "Bad Request",
-                message: "userId is required"
-            });
-        }
-
-        // חיפוש הזמנה לפי ID ומשתמש
-        const order = await OrderModel.findOne({ 
-            _id: id, 
-            userId 
-        });
-
-        // אם ההזמנה לא נמצאה
-        if (!order) {
-            return res.status(404).json({
-                title: "Order not found",
-                message: "No such order for this user"
-            });
-        }
-
-        // החזרת ההזמנה
-        res.json(order);
-
-    } catch (x) {
-        return res.status(500).json({ title: "Error retrieving order", message: x })
-    }
-};
-
-// עדכון הזמנה – סימון כיצאה למשלוח
-export const updateOrder = async (req, res) => {
-    try {
-        // מזהה ההזמנה
-        const { id } = req.params;
-
-        // חיפוש ההזמנה
         const order = await OrderModel.findById(id);
-
-        // אם לא נמצאה הזמנה
         if (!order) {
-            return res.status(404).json({
-                title: "Order not found",
-                message: "No such order"
-            });
+            return res.status(404).json({ title: "Order not found", message: "No such order" });
         }
-
-        // סימון ההזמנה כמשולחת
-        order.isShipped = true;
-
-        // שמירת העדכון
-        await order.save();
-
-        // החזרת תוצאה
-        return res.json({
-            message: "Order marked as shipped",
-            order
-        });
-
-    }     catch (x) {
-        return res.status(500).json({ title: "Error updating order status", message: x })
+        res.json(order);
+    } catch (x) {
+        return res.status(500).json({ title: "Error retrieving order", message: x });
     }
 };
 

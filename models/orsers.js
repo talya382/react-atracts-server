@@ -21,7 +21,7 @@ const orderSchema = new mongoose.Schema({
     unique: true // מזהה הזמנה ייחודי
   },
   userId: {
-    type: String,  // ← הוסיפי שורה זו
+    type: String  // ← הוסיפי שורה זו
   },
   orderDate: {
     type: Date,
