@@ -20,6 +20,9 @@ const orderSchema = new mongoose.Schema({
     required: true,
     unique: true // מזהה הזמנה ייחודי
   },
+  userId: {
+    type: String,  // ← הוסיפי שורה זו
+  },
   orderDate: {
     type: Date,
     default: Date.now // תאריך יצירה אוטומטי
