@@ -123,3 +123,17 @@ export const deleteOrder = async (req, res) => {
         return res.status(500).json({ title: "Error cancelling order", message: x })
     }
 };
+export const updateOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const order = await OrderModel.findById(id);
+        if (!order) {
+            return res.status(404).json({ title: "Order not found", message: "No such order" });
+        }
+        order.isShipped = true;
+        await order.save();
+        return res.json({ message: "Order marked as shipped", order });
+    } catch (x) {
+        return res.status(500).json({ title: "Error updating order status", message: x });
+    }
+};
