@@ -7,6 +7,8 @@ import usersRoutes from "./routs/user.js";
 import connectDB from "./config/db.js";
 import { printToLog } from "./middlewares/logToFile.js";
 import reviewRouter from "./routs/review.js";
+import forgotPasswordRouter from "./routs/forgotPassword.js";
+
 
 
 // טעינת משתני סביבה
@@ -35,6 +37,7 @@ app.use("/orders", ordersRoutes);
 app.use("/attractions", attractionsRoutes);
 app.use("/users", usersRoutes);
 app.use("/reviews", reviewRouter);
+app.use("/auth", forgotPasswordRouter);
 
 // eslint-disable-next-line no-undef
 const port = process.env.PORT || 3000;
