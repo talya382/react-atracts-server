@@ -23,12 +23,13 @@ const startServer = async () => {
 
         // Middlewares
         app.use(cors({
-            origin: [
-                "http://localhost:5173",
-                "https://atract-israel-bytay.netlify.app"
-            ],
-            credentials: true
-        }));
+          origin: [
+              "http://localhost:5173", // לעבודה במחשב
+              "https://atract-israel-bytay.netlify.app" // האתר החי בנטליפיי
+          ],
+          methods: ["GET", "POST", "PUT", "DELETE"],
+          credentials: true
+      }));
 
         app.use(express.json()); 
         app.use(express.urlencoded({ extended: true }));

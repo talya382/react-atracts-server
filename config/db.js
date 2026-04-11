@@ -1,18 +1,18 @@
 import mongoose from "mongoose";
 
-// פונקציה לחיבור למסד הנתונים
 const connectDB = async () => {
-  try {
-    // חיבור ל־MongoDB מקומי
-    await mongoose.connect(process.env.MONGO_URI);
-
-    console.log("MongoDB connected successfully");
-  } catch (error) {
-    // כשל בחיבור למסד
-    console.error("MongoDB connection failed:", error.message);
-    process.exit(1);
-  }
+    try {
+        const uri = process.env.MONGO_URI;
+        if (!uri) {
+            throw new Error("MONGO_URI is missing in environment variables!");
+        }
+        
+        await mongoose.connect(uri);
+        console.log("✅ MongoDB Connected!");
+    } catch (error) {
+        console.error("❌ Connection Failed:", error.message);
+        // חשוב: לא עושים process.exit(1) כאן כדי שהשרת ימשיך לרוץ
+    }
 };
 
-// ייצוא הפונקציה
 export default connectDB;
