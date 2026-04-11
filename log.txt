@@ -655,3 +655,5 @@
 --> 3/16/2026 - GET - /attractions/top10
 --> 3/16/2026 - GET - /attractions/top10
 --> 3/16/2026 - GET - /attractions?category=air&subCategory=parachute&limit=100
+--> 4/11/2026 - GET - /attractions
+--> 4/11/2026 - GET - /favicon.ico
