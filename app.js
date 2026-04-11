@@ -1,6 +1,7 @@
 // 1. קודם כל טוענים את המשתנים - השורה הזו חייבת להיות ראשונה!
 import dotenv from "dotenv";
 dotenv.config(); 
+console.log("URI loaded:", process.env.MONGO_URI ? "Yes" : "No")
 
 // 2. עכשיו מייבאים את השאר
 import express from "express";
