@@ -9,40 +9,49 @@ import { printToLog } from "./middlewares/logToFile.js";
 import reviewRouter from "./routs/review.js";
 import forgotPasswordRouter from "./routs/forgotPassword.js";
 
-
-
-// טעינת משתני סביבה
+// טעינת משתני סביבה - ודאי שזה קורה לפני הכל
 dotenv.config();
 
-// יצירת אפליקציית Express
 const app = express(); 
 
-// חיבור למסד הנתונים
-connectDB();
+// פונקציית עזר להרצת השרת רק אחרי חיבור מוצלח ל-DB
+const startServer = async () => {
+    try {
+        // חיבור למסד הנתונים
+        await connectDB();
+        console.log("Database connected successfully");
 
-// Middlewares - חייבים לבוא לפני ה-Routes
-app.use(cors({
-    origin: [
-      "http://localhost:5173",
-      "https://atract-israel-bytay.netlify.app"
-    ]
-  }));
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true }));
-app.use(printToLog);
+        // Middlewares
+        app.use(cors({
+            origin: [
+                "http://localhost:5173",
+                "https://atract-israel-bytay.netlify.app"
+            ],
+            credentials: true
+        }));
 
+        app.use(express.json()); 
+        app.use(express.urlencoded({ extended: true }));
+        app.use(printToLog);
 
-// Routes
-app.use("/orders", ordersRoutes);
-app.use("/attractions", attractionsRoutes);
-app.use("/users", usersRoutes);
-app.use("/reviews", reviewRouter);
-app.use("/auth", forgotPasswordRouter);
+        // Routes
+        app.use("/orders", ordersRoutes);
+        app.use("/attractions", attractionsRoutes);
+        app.use("/users", usersRoutes);
+        app.use("/reviews", reviewRouter);
+        app.use("/auth", forgotPasswordRouter);
 
-// eslint-disable-next-line no-undef
-const port = process.env.PORT || 3000;
+        // הגדרת פורט - חשוב מאוד ל-Render
+        const port = process.env.PORT || 10000;
 
-// הרצת השרת
-app.listen(port, () => {
-    console.log("Server running on port " + port);
-});
+        app.listen(port, "0.0.0.0", () => {
+            console.log(`Server is running smoothly on port ${port}`);
+        });
+
+    } catch (error) {
+        console.error("FAILED to start server:", error.message);
+        // לא קורסים מיד, נותנים ל-Render לנסות שוב
+    }
+};
+
+startServer();
