@@ -2,26 +2,35 @@ import mongoose from "mongoose";
 import { hashSync } from "bcryptjs";
 import { userModel } from "./models/user.js";
 
-await mongoose.connect("mongodb+srv://talyaacc055_db:0zYkzSlcWsNGEG7C@atraction.eybywve.mongodb.net/");
+// הכתובת המדויקת של ה-Database שלך
+const MONGO_URI = "mongodb+srv://inbarycohen_db_user:6mpSGxaQigDCxtuG@inbardb.yejxkbj.mongodb.net/attractiondb";
 
-const adminEmail = "admin@atracts.com";
+async function createAdmin() {
+    try {
+        await mongoose.connect(MONGO_URI);
+        console.log("✅ מחובר ל-attractiondb");
 
-// בדוק אם כבר קיים
-const existing = await userModel.findOne({ email: adminEmail });
-if (existing) {
-    console.log("✅ מנהל כבר קיים במערכת");
-} else {
-    const hashedPassword = hashSync("admin1234", 10);
-    await userModel.create({
-        userName: "Admin",
-        email: adminEmail,
-        password: hashedPassword,
-        role: "ADMIN",
-        status: true,
-    });
-    console.log("✅ משתמש מנהל נוצר בהצלחה!");
-    console.log("📧 אימייל: admin@atracts.com");
-    console.log("🔑 סיסמה: admin1234");
+        const adminEmail = "admin@atracts.com";
+
+        const existing = await userModel.findOne({ email: adminEmail });
+        if (existing) {
+            console.log("✅ מנהל כבר קיים במערכת");
+        } else {
+            const hashedPassword = hashSync("admin1234", 10);
+            await userModel.create({
+                userName: "Admin",
+                email: adminEmail,
+                password: hashedPassword,
+                role: "ADMIN", // ודאי שבמודל שלך זה role ולא isAdmin
+                status: true,
+            });
+            console.log("✅ משתמש מנהל נוצר בהצלחה!");
+        }
+    } catch (err) {
+        console.error("❌ שגיאה:", err);
+    } finally {
+        mongoose.disconnect();
+    }
 }
 
-mongoose.disconnect();
+createAdmin();

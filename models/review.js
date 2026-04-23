@@ -8,4 +8,5 @@ const reviewSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-export const reviewModel = mongoose.model("Review", reviewSchema);
+// ודאי שהשורה האחרונה נראית כך:
+export const reviewModel = mongoose.model('Review', reviewSchema, 'reviews');

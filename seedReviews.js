@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { reviewModel } from "./models/review.js";
 
-await mongoose.connect("mongodb+srv://talyaacc055_db:0zYkzSlcWsNGEG7C@atraction.eybywve.mongodb.net/");
+await mongoose.connect("mongodb+srv://inbarycohen_db_user:6mpSGxaQigDCxtuG@inbardb.yejxkbj.mongodb.net/attractiondb");
 
 const reviews = [
   { name: "דנה כהן", rating: 5, text: "חוויה מדהימה! רכבתי על סוסים בגליל וזה היה פשוט קסום. הנוף, האוויר הצח והסוסים העדינים — לא אשכח את זה לעולם!", attraction: "חוות הסוסים הגליל" },
